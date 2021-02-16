@@ -1,6 +1,6 @@
 def pedir_palabra() -> str:
     # se puede agregar validación
-    """Pide una palabras, y las retorna."""
+    """Pide una palabra, y la retorna."""
     return
 
 
@@ -9,8 +9,8 @@ def separar_silabas(palabra: str) -> list:
     return
 
 
-def generar_palabra(palabras_semilla: list) -> str:
-    """Genera unas palabras a partir de las palabras que se le pasen."""
+def generar_palabra(silabas_semilla: list) -> str:
+    """Genera una palabra a partir de la lista de sílabas."""
     return
 
 
