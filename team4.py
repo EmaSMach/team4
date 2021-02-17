@@ -11,6 +11,7 @@ def separar_silabas(palabra: str) -> list:
 
 def generar_palabra(silabas_semilla: list) -> str:
     """Genera una palabra a partir de la lista de sílabas."""
+    """Adrian"""
     return
 
 
