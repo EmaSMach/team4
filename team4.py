@@ -1,7 +1,28 @@
-def pedir_palabra() -> str:
-    # se puede agregar validación
-    """Pide una palabra, y la retorna."""
-    return
+def es_palabra_válida(palabra: str, min_length: int) -> bool:
+    """
+    Verifica que la palabra dada sea válida, y que tenga el largo mínimo indicado.
+    """
+    if isinstance(palabra, str):
+        if len(palabra) < min_length or not palabra.isalpha():
+            return False
+        else:
+            return True
+    else:
+        raise TypeError("'palabra' debe ser un string")
+
+
+def pedir_palabra(min_length=1) -> str:
+    """
+    Pide una palabra, y la retorna.
+    Sigue pidiendo hasta que se ingrese una palabra válida.
+    """
+    while True:
+        err_msg = "Ingrese una palabra válida"  # esto puede agregarse como un parámetro
+        palabra = input("Ingrese palabra: ").strip()
+        if es_palabra_válida(palabra, min_length):
+            return palabra
+        else:
+            print(err_msg)
 
 
 def separar_silabas(palabra: str) -> list:
