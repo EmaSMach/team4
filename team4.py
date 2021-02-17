@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+import separasilabas
+import random
+from os import system
+system("cls")
+
 def pedir_palabra() -> str:
     # se puede agregar validación
     """Pide una palabra, y la retorna."""
@@ -11,8 +17,23 @@ def separar_silabas(palabra: str) -> list:
 
 def generar_palabra(silabas_semilla: list) -> str:
     """Genera una palabra a partir de la lista de sílabas."""
-    """Adrian"""
-    return
+    # ejemplo [["","","",""],["",""]]
+    salida =''
+    aux_rnd = random.randrange(2)
+    if aux_rnd ==0:
+    # tomando una sola silaba por cada palabra
+        for x in silabas_semilla:
+            r = random.randrange(len(x)-1)
+            salida += x[r]
+    elif aux_rnd ==1:
+        # toma 2 silabas de la primera y 2 silaba de cada siguente
+         
+        for x in silabas_semilla:
+            r = random.randrange(len(x)-1)
+            salida += x[r]
+            r = random.randrange(len(x)-1)
+            salida += x[r]
+    return salida
 
 
 def mostrar_palabras(palabras_generadas: list, palabras_semilla: list):
@@ -22,6 +43,9 @@ def mostrar_palabras(palabras_generadas: list, palabras_semilla: list):
 
 def main():
     # Logica principal del programa
+    valor =[["BI","CI","CLE","TA"],["PA","RA","GUAS"]]
+
+    print(generar_palabra(valor))
     return
 
 
