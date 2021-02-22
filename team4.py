@@ -2,7 +2,10 @@
 import separasilabas
 import random
 from os import system
+
+
 system("cls")
+
 
 def pedir_palabra() -> str:
     # se puede agregar validación
@@ -20,7 +23,7 @@ def generar_palabra(silabas_semilla: list) -> str:
     # ejemplo [["","","",""],["",""]]
     salida =''
     aux_rnd = random.randrange(2)
-    if aux_rnd ==0:
+    if aux_rnd == 0:
     # tomando una sola silaba por cada palabra
         for x in silabas_semilla:
             r = random.randrange(len(x)-1)
