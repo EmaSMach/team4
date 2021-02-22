@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+import random
+from os import system
+
+
+system("cls")
+
+
 def es_palabra_valida(palabra: str, min_length: int) -> bool:
     """
     Verifica que la palabra dada sea válida, y que tenga el largo mínimo indicado.
@@ -31,7 +39,23 @@ def separar_silabas(palabra: str) -> list:
 
 def generar_palabra(silabas_semilla: list) -> str:
     """Genera una palabra a partir de la lista de sílabas."""
-    return
+    # ejemplo [["","","",""],["",""]]
+    salida =''
+    aux_rnd = random.randrange(2)
+    if aux_rnd == 0:
+    # tomando una sola silaba por cada palabra
+        for x in silabas_semilla:
+            r = random.randrange(len(x)-1)
+            salida += x[r]
+    elif aux_rnd ==1:
+        # toma 2 silabas de la primera y 2 silaba de cada siguente
+         
+        for x in silabas_semilla:
+            r = random.randrange(len(x)-1)
+            salida += x[r]
+            r = random.randrange(len(x)-1)
+            salida += x[r]
+    return salida
 
 
 def mostrar_palabras(palabras_generadas: list, palabras_semilla: list):
