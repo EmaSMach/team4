@@ -65,7 +65,6 @@ def mostrar_palabras(palabras_generadas: list, palabras_semilla: list):
 
 def main():
     # Logica principal del programa
-    pedir_palabra()
     return
 
 
