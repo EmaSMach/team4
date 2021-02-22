@@ -17,7 +17,8 @@ def pedir_palabra(min_length=1) -> str:
     Sigue pidiendo hasta que se ingrese una palabra válida.
     """
     while True:
-        err_msg = "Ingrese una palabra válida"  # esto puede agregarse como un parámetro
+        # esto puede agregarse como un parámetro
+        err_msg = "Ingrese una palabra válida"
         palabra = input("Ingrese palabra: ").strip()
         if es_palabra_válida(palabra, min_length):
             return palabra
@@ -42,7 +43,7 @@ def mostrar_palabras(palabras_generadas: list, palabras_semilla: list):
 
 def main():
     # Logica principal del programa
-    return
+    pass
 
 
 if __name__ == '__main__':
