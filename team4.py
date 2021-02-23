@@ -3,6 +3,9 @@ import random
 from os import system
 
 
+from separasilabas import silabizer
+
+
 system("cls")
 
 
@@ -34,7 +37,9 @@ def pedir_palabra(min_length: int = 2) -> str:
 
 def separar_silabas(palabra: str) -> list:
     """Separa la palabra dada en sílabas, retorna la lista de sílabas."""
-    return
+    separador = silabizer()
+    silabas = separador(palabra)
+    return silabas
 
 
 def generar_palabra(silabas_semilla: list) -> str:
@@ -65,6 +70,7 @@ def mostrar_palabras(palabras_generadas: list, palabras_semilla: list):
 
 def main():
     # Logica principal del programa
+    print(separar_silabas("oligarca"))
     return
 
 
