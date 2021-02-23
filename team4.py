@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import random
 from os import system
+from separasilabas import silabizer
 
 
 system("cls")
@@ -32,11 +33,6 @@ def pedir_palabra(min_length: int = 2) -> str:
             print("Ingrese una palabra válida")
 
 
-def separar_silabas(palabra: str) -> list:
-    """Separa la palabra dada en sílabas, retorna la lista de sílabas."""
-    return
-
-
 def generar_palabra(silabas_semilla: list) -> str:
     """Genera una palabra a partir de la lista de sílabas."""
     # ejemplo [["","","",""],["",""]]
@@ -58,15 +54,26 @@ def generar_palabra(silabas_semilla: list) -> str:
     return salida
 
 
-def mostrar_palabras(palabras_generadas: list, palabras_semilla: list):
-    """Muestra las palabras base, y las generadas."""
-    return
+def mostrar_palabras(palabras_semilla: list, palabra_generada: str):
+    """Muestra las palabras semilla, y la palabra generada."""
+    print(
+        "Se ingresaron {} palabras semillas: {}".format(
+            len(palabras_semilla), 
+            (', ').join(palabras_semilla).upper())
+    )
+
+    print(
+        'La palabra creada es: {}'.format(
+            palabra_generada.upper()
+        )
+    )
 
 
 def main():
     # Logica principal del programa
-    return
+    pass
 
 
 if __name__ == '__main__':
     main()
+    
