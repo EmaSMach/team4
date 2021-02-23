@@ -43,7 +43,9 @@ def pedir_n_palabras(n: int) -> list[str]:
 
 def separar_silabas(palabra: str) -> list:
     """Separa la palabra dada en sílabas, retorna la lista de sílabas."""
-    return
+    separador = silabizer()
+    silabas = separador(palabra)
+    return silabas
 
 
 def generar_palabra(silabas_semilla: list) -> str:
