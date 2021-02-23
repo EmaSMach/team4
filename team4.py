@@ -45,7 +45,7 @@ def separar_silabas(palabra: str) -> list:
     """Separa la palabra dada en sílabas, retorna la lista de sílabas."""
     separador = silabizer()
     silabas = separador(palabra)
-    return silabas
+    return [str(silaba) for silaba in silabas]
 
 
 def generar_palabra(silabas_semilla: list) -> str:
@@ -88,22 +88,15 @@ def main():
     # # Logica principal del programa
     print("### PALABRAITOR ###")
     palabras = pedir_n_palabras(3)
-    print("PALABRAS: ", palabras)
     silabas = []
 
     for palabra in palabras:
         temp_silabas = separar_silabas(palabra)
-        # silabas += temp_silabas
         silabas.append(temp_silabas)
-
-    print("SILABAS: ", silabas)
 
     nueva_palabra = generar_palabra(silabas)
 
     mostrar_palabras(palabras, nueva_palabra)
-
-    # word = generar_palabra([['re', 'lo', 'ca', 'ción'], ['ar', 'me', 'rí', 'a'], ['sol', 'da', 'do']])
-    # print(word)
 
 
 if __name__ == '__main__':
