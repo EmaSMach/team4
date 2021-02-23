@@ -32,6 +32,14 @@ def pedir_palabra(min_length: int = 2) -> str:
             print("Ingrese una palabra válida")
 
 
+def pedir_n_palabras(n: int) -> list[str]:
+    palabras = []
+    for i in range(n):
+        palabra = pedir_palabra()
+        palabras.append(palabra)
+    return palabras
+
+
 def separar_silabas(palabra: str) -> list:
     """Separa la palabra dada en sílabas, retorna la lista de sílabas."""
     return
@@ -65,6 +73,7 @@ def mostrar_palabras(palabras_generadas: list, palabras_semilla: list):
 
 def main():
     # Logica principal del programa
+    print(pedir_n_palabras(2))
     return
 
 
