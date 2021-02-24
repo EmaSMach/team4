@@ -5,6 +5,15 @@ import logging
 logging.basicConfig(level=logging.DEBUG)  # INFO
 
 
+class MostrarPalabrasGUI(Toplevel):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def set_grab_and_wait(self):
+        self.grab_set()
+        self.wait_window()
+
+
 class PalabraitorGUI(Frame):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -13,6 +22,7 @@ class PalabraitorGUI(Frame):
 
         self.start_row = 2
         self.word_labels = []
+        self.palabras = []
 
         self.make_widgets()
         self.make_input_widgets()
@@ -28,7 +38,7 @@ class PalabraitorGUI(Frame):
         self.pedir_palabra_container.rowconfigure(ALL, weight=1)
         self.pedir_palabra_container.columnconfigure(0, weight=1)
 
-        self.generar_palabras_btn = Button(self, text='Generar Palabra', command=self.delete_word_labels,
+        self.generar_palabras_btn = Button(self, text='Generar Palabra', command=self.on_generar_palabra_btn,
                                            font=self.font)
         self.generar_palabras_btn.grid(row=2, column=0, sticky='new')
 
@@ -49,6 +59,7 @@ class PalabraitorGUI(Frame):
         # agregamos el nuevo label a la lista de instancias
         # de modo que luego podamos llamar .destroy() en todas ellas, y vaciar la lista
         self.word_labels.append(new_label)
+        self.palabras.append(palabra)
         self.start_row += 1
 
         self.palabra_var.set("")  # reseteamos el contenido de la variable
@@ -57,10 +68,70 @@ class PalabraitorGUI(Frame):
         for lbl in self.word_labels:
             lbl.destroy()
         self.word_labels.clear()
+        self.palabras.clear()
         self.start_row = 2  # volvemos el contador al punto de partida
 
     def make_display_widgets(self):
         pass
+
+    def on_generar_palabra_btn(self):
+        palabras_semilla = self.palabras.copy()
+        result_window = MostrarPalabrasGUI()
+        mostrar_palabras(palabras_semilla, 'soledad', result_window)
+        # limpiamos la ventana anterior
+        self.delete_word_labels()
+        result_window.set_grab_and_wait()
+
+
+# esta parte es de and1
+def mostrar_palabras(palabras_semilla: list, palabra_generada: str, main_window):
+    """Muestra las palabras semilla, y la palabra generada."""
+
+    font = ('Verdana', 21, 'bold')
+
+    # Frame que muestra las palabras ingresadas
+    frame_mostrar_palabras = LabelFrame(
+        main_window, 
+        text = 'MOSTRAR LAS PALABRAS CARGADAS:',
+        font = font
+    )
+
+    frame_mostrar_palabras.grid(row = 0, column = 0, sticky = 'WENS')
+
+    label_palabras_mostradas = Label(
+        frame_mostrar_palabras, 
+        text = (', '.join(palabras_semilla)).upper(),
+        font = font
+    )
+
+    label_palabras_mostradas.grid(row = 0, column = 0, sticky = 'WENS')
+
+    # Frame que muestra la palabra creada.
+    frame_palabra_creada = LabelFrame(
+        main_window, 
+        text = 'MOSTRAR LA PALABRA CREADA:',
+        font = font
+    )
+
+    frame_palabra_creada.grid(row = 1, column = 0, sticky = 'WENS')
+
+    label_palabras_mostradas = Label(
+        frame_palabra_creada, 
+        text = palabra_generada.upper(),
+        font = font
+    )
+
+    label_palabras_mostradas.grid(row = 0, column = 0, sticky = 'WENS')
+
+    # Botón para cerrar la ventana
+    boton_cerrar = Button(
+        main_window, 
+        text = 'Cerrar',
+        command = main_window.destroy,
+        font = font
+    )
+
+    boton_cerrar.grid(row = 2, column = 0, sticky = 'NS')
 
 
 def main():
