@@ -19,8 +19,9 @@ def generar_palabra(silabas_semilla: list) -> str:
     """Genera una palabra a partir de la lista de sílabas."""
     # ejemplo [["","","",""],["",""]]
     salida =''
-    aux_rnd = random.randrange(2)
+    
     for x in silabas_semilla:
+        aux_rnd = random.randrange(2)
         # si es una sola silaba
         if len(x) == 1:
             salida += x[0]
