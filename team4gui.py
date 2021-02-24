@@ -1,8 +1,11 @@
 from tkinter import *
 import logging
+from tkinter.messagebox import showwarning
+
+from team4 import es_palabra_valida, generar_palabra, separar_silabas
 
 
-logging.basicConfig(level=logging.DEBUG)  # INFO
+logging.basicConfig(level=logging.ERROR)  # INFO
 
 
 class MostrarPalabrasGUI(Toplevel):
@@ -44,14 +47,18 @@ class PalabraitorGUI(Frame):
 
     def make_input_widgets(self):
         self.palabra_var = StringVar()
+        vcmd = (self.register(self.on_validate), "%P")
         self.input_widget = Entry(self.pedir_palabra_container, textvariable=self.palabra_var,
-                                  font=self.font)
+                                  font=self.font, validatecommand=vcmd, validate='key')
         self.input_widget.grid(row=0, column=0, sticky='new')
 
         self.input_widget.bind('<Return>', self.on_input_enter)
 
     def on_input_enter(self, event=None):
         palabra = self.palabra_var.get()
+        if not es_palabra_valida(palabra, 2):
+            showwarning("Aviso", "La palabra debe tener al menos dos letras!!!")
+            return
         new_label = Label(self.pedir_palabra_container, text=f"{palabra}",
                           font=self.font)
         new_label.grid(row=self.start_row, column=0, sticky='n')
@@ -62,13 +69,17 @@ class PalabraitorGUI(Frame):
         self.palabras.append(palabra)
         self.start_row += 1
 
-        self.palabra_var.set("")  # reseteamos el contenido de la variable
+        # self.palabra_var.set("")  # reseteamos el contenido de la variable
+        # AVISO: borramos el contenido del widget en lugar de setear el contenido del StringVar
+        # por causar problemas con las funciones de validación
+        self.input_widget.delete(0, END)
+        # self.input_widget.update()
 
     def delete_word_labels(self, event=None):
         for lbl in self.word_labels:
             lbl.destroy()
         self.word_labels.clear()
-        self.palabras.clear()
+        # self.palabras.clear()
         self.start_row = 2  # volvemos el contador al punto de partida
 
     def make_display_widgets(self):
@@ -76,11 +87,35 @@ class PalabraitorGUI(Frame):
 
     def on_generar_palabra_btn(self):
         palabras_semilla = self.palabras.copy()
+        if not palabras_semilla:
+            showwarning("Aviso", "No hay palabras igresadas!!!")
+            return
+
+        logging.info("Palabras semilla: ", palabras_semilla)
         result_window = MostrarPalabrasGUI()
-        mostrar_palabras(palabras_semilla, 'soledad', result_window)
+
+        silabas = []
+        for palabra in palabras_semilla:
+            logging.info("P: ", palabra)
+            temp = separar_silabas(palabra)
+            logging.info("SILABAS:", palabra, temp)
+            silabas.append(temp)
+
+        logging.info("Silabas: ", silabas)
+        palabra_generada = generar_palabra(silabas)
+        mostrar_palabras(palabras_semilla, palabra_generada, result_window)
+
+        self.palabras.clear()
         # limpiamos la ventana anterior
         self.delete_word_labels()
         result_window.set_grab_and_wait()
+
+    def on_validate(self, P):
+        """Validación simple, se aceptan solo letras, o dejar el campo vacío"""
+        if len(P) == 0 or P.isalpha():
+            return True
+        else:
+            return False
 
 
 # esta parte es de and1
